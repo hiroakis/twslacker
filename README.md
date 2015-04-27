@@ -12,22 +12,36 @@ bundle install --path .bundle
 
 ## Usage
 
-* start application
+### start application
 
 ```
-twslacker start --type sample
+bundle exec ruby bin/twslacker start --type sample
 or
-twslacker start --type track keyword keyword...
+bundle exec ruby bin/twslacker start --type track keyword keyword...
 or
-twslacker start --type follow twitter_id twitter_id...
+bundle exec ruby bin/twslacker start --type follow screen_name screen_name...
 or
-twslacker start --type userstream
+bundle exec ruby bin/twslacker start --type userstream
 ```
 
-* stop application
+If you would like to ignore some words, you can use `--ignore` option.
+
+* ignore tweet that includes "AAA", "BBB" or "CCC"
 
 ```
-twslacker stop
+bundle exec ruby bin/twslacker start --type sample --ignore=AAA,BBB,CCC
+```
+
+* ignore Retweet, mention and hashtag
+
+```
+bundle exec ruby bin/twslacker start --type sample --ignore=RT,@,#
+```
+
+### stop application
+
+```
+bundle exec ruby bin/twslacker stop
 ```
 
 ## License
