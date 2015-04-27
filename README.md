@@ -1,6 +1,6 @@
 # Twslacker
 
-Notify 
+Notify slack of the twitter stream.
 
 ## Installation
 
