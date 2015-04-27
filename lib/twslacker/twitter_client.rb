@@ -21,28 +21,36 @@ module Twslacker
       @stream_client = TweetStream::Daemon.new('twslacker')
     end
 
-    def sample(&block)
+    def sample(ignore_words, &block)
       @stream_client.sample do |status|
-        yield "#{status.user.screen_name}: #{status.text}"
+        unless ignore_words.find { |i| status.text.index(i) }
+          yield "#{status.user.screen_name}: #{status.text}"
+        end
       end
     end
 
-    def track(keywords, &block)
-      @stream_client.track(keywords) do |status|
-        yield "#{status.user.screen_name}: #{status.text}"
+    def track(words, ignore_words, &block)
+      @stream_client.track(words) do |status|
+        unless ignore_words.find { |i| status.text.index(i) }
+          yield "#{status.user.screen_name}: #{status.text}"
+        end
       end
     end
 
-    def follow(screen_names, &block)
+    def follow(screen_names, ignore_words, &block)
       ids = get_user_ids_from_screen_names(screen_names)
       @stream_client.follow(ids) do |status|
-        yield "#{status.user.screen_name}: #{status.text}"
+        unless ignore_words.find { |i| status.text.index(i) }
+          yield "#{status.user.screen_name}: #{status.text}"
+        end
       end
     end
 
-    def userstream(&block)
+    def userstream(ignore_words, &block)
       @stream_client.userstream do |status|
-        yield "#{status.user.screen_name}: #{status.text}"
+        unless ignore_words.find { |i| status.text.index(i) }
+          yield "#{status.user.screen_name}: #{status.text}"
+        end
       end
     end
 

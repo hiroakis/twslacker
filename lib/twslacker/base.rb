@@ -10,8 +10,11 @@ module Twslacker
       optparse.on("-t [STREAM_TYPE]", "--type [STREAM_TYPE]", "sample, track, follow or userstream") do |t|
         @options[:stream_type] = t
       end
-      optparse.on("-c [CONFIG_FILE]", "--config [CONFIG_FILE]", "config file") do |file|
+      optparse.on("-c [CONFIG_FILE_PATH]", "--config [CONFIG_FILE_PATH]", "config file path") do |file|
         @options[:config_file] = File.join(file)
+      end
+      optparse.on("-i=word,word,...", "--ignore=word,word,...", Array, "ignore words") do |words|
+        @options[:ignore] = words
       end
       optparse.parse!
     end
@@ -23,14 +26,16 @@ module Twslacker
         @slack.post message
       end
 
+      ignore_words = @options[:ignore] || []
       case @options[:stream_type]
       when 'sample'
-        @twitter_client.sample(&callback)
+        @twitter_client.sample(ignore_words, &callback)
       when 'track'
-        @twitter_client.track(args, &callback)
+        @twitter_client.track(args, ignore_words, &callback)
       when 'follow'
-        @twitter_client.follow(args, &callback)
+        @twitter_client.follow(args, ignore_words, &callback)
       when 'userstream'
+        @twitter_client.follow(ignore_words, &callback)
       else
       end
     end
@@ -40,7 +45,7 @@ module Twslacker
       if File.exists? @options[:config_file]
         configs = YAML.load_file(@options[:config_file])
       else
-        puts "No such file"
+        puts "Config file not found"
         exit 1
       end
       @slack = Twslacker::SlackClient.new(
