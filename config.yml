@@ -1,0 +1,11 @@
+twitter:
+  consumer_key: XXXXXXXXX
+  consumer_secret: XXXXXXXXX
+  access_token_key: XXXXXXXX
+  access_secret: XXXXXXXX
+
+slack:
+  webhook_url: https://hooks.slack.com/services/XXXXXXXXXXXXX
+  channel: XXXXXXX # NOTE: do not input "#" on prefix
+  username: XXXXXXX
+  icon_emoji: XXXXXX # NOTE: do not surround the word with ":" 
