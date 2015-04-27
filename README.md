@@ -17,9 +17,9 @@ bundle install --path .bundle
 ```
 twslacker start --type sample
 or
-twslacker start --type track keyword, keyword, keyword
+twslacker start --type track keyword keyword...
 or
-twslacker start --type follow follow_ids --notifier slack --limit xx
+twslacker start --type follow twitter_id twitter_id...
 or
 twslacker start --type userstream
 ```
