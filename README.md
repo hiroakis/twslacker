@@ -12,6 +12,8 @@ bundle install --path .bundle
 
 ## Usage
 
+At first, create configration file `cp -p config.yml .config.yml`. Twslacker use `.config.yml` by default. Or you can use `-c` option to specify configuration file.
+
 ### start application
 
 ```
@@ -38,11 +40,23 @@ bundle exec ruby bin/twslacker start --type sample --ignore=AAA,BBB,CCC
 bundle exec ruby bin/twslacker start --type sample --ignore=RT,@,#
 ```
 
+* daemonize
+
+If you would like to start this application in daemon mode, use `-d` flag.
+
+```
+bundle exec ruby bin/twslacker start --type sample --ignore=AAA,BBB,CCC -d
+```
+
 ### stop application
 
 ```
 bundle exec ruby bin/twslacker stop
 ```
+
+## TODO
+
+test
 
 ## License
 

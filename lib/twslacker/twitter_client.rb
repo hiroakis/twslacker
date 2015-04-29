@@ -18,7 +18,7 @@ module Twslacker
         config.oauth_token_secret  = access_secret
         config.auth_method         = :oauth
       end
-      @stream_client = TweetStream::Daemon.new('twslacker')
+      @stream_client = TweetStream::Client.new
     end
 
     def sample(ignore_words, &block)
