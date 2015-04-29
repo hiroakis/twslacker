@@ -2,6 +2,12 @@
 
 Notify slack of the twitter stream.
 
+## Requirements
+
+* Ruby
+* Twitter tokens
+* Slack incoming webhook URL
+
 ## Installation
 
 ```
@@ -17,12 +23,16 @@ At first, create configration file `cp -p config.yml .config.yml`. Twslacker use
 ### start application
 
 ```
+# sample: Random tweets in all over the world
 bundle exec ruby bin/twslacker start --type sample
-or
+
+# track: Tweets that include specified keywords
 bundle exec ruby bin/twslacker start --type track keyword keyword...
-or
+
+# follow: Tweets of specified twitter users
 bundle exec ruby bin/twslacker start --type follow screen_name screen_name...
-or
+
+# userstream: Your timeline(default)
 bundle exec ruby bin/twslacker start --type userstream
 ```
 

@@ -59,6 +59,7 @@ module Twslacker
     def shutdown
       begin
         raise "pid file not found" unless File.exists?(@options[:pid])
+
         pid = File.open(@options[:pid])
         Process.kill(:INT, pid.read.to_i)
         File.delete(@options[:pid])
@@ -110,10 +111,11 @@ module Twslacker
     def daemonize(file)
       begin
         raise "pid file already exists" if File.exists?(file)
+
+        Process.daemon(true, true)
         File.open(file, 'w') do |f|
           f.puts(Process.pid)
         end
-        Process.daemon(true, true)
       rescue Exception => e
         raise
       end
