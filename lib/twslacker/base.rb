@@ -32,7 +32,7 @@ module Twslacker
       optparse.parse!
     end
 
-    def run
+    def run(args)
       begin
         daemonize(@options[:pid]) if @options[:daemonized]
       rescue Exception => e

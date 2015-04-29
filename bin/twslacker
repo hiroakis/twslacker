@@ -4,12 +4,12 @@ $LOAD_PATH << File.dirname(__FILE__) + '/../lib' unless $LOAD_PATH.include?(File
 require 'twslacker'
 
 twslacker = Twslacker::Base.new
-case ARGV[0]
+case ARGV.shift
 when "start"
-  twslacker.run
+  twslacker.run(ARGV)
 when "stop"
   twslacker.shutdown
 else
-  puts "(start|stop)"
+  puts "The first argument must be (start|stop)"
   Kernel.exit(1)
 end
