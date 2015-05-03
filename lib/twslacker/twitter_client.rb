@@ -49,13 +49,13 @@ module Twslacker
     def userstream(ignore_words, &block)
       @stream_client.userstream do |status|
         unless ignore_words.find { |i| status.text.index(i) }
-	 if status.media?
+          if status.media?
             yield "#{status.user.screen_name}: #{status.text}"
-            status.media.each { |m| yield "#{m.media_url}"}
-         else
-            yield "#{status.user.screen_name}: #{status.text}"
-         end
-	end
+              status.media.each { |m| yield "#{m.media_url}"}
+          else
+              yield "#{status.user.screen_name}: #{status.text}"
+          end
+        end
       end
     end
 
