@@ -24,7 +24,12 @@ module Twslacker
     def sample(ignore_words, &block)
       @stream_client.sample do |status|
         unless ignore_words.find { |i| status.text.index(i) }
-          yield "#{status.user.screen_name}: #{status.text}"
+          if status.media?
+            yield "#{status.user.screen_name}: #{status.text}"
+            status.media.each { |m| yield "#{m.media_url}"}
+          else
+            yield "#{status.user.screen_name}: #{status.text}"
+          end
         end
       end
     end
