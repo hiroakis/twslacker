@@ -24,7 +24,12 @@ module Twslacker
     def sample(ignore_words, &block)
       @stream_client.sample do |status|
         unless ignore_words.find { |i| status.text.index(i) }
-          yield "#{status.user.screen_name}: #{status.text}"
+          if status.media?
+            yield "#{status.user.screen_name}: #{status.text}"
+            status.media.each { |m| yield "#{m.media_url}"}
+          else
+            yield "#{status.user.screen_name}: #{status.text}"
+          end
         end
       end
     end
@@ -32,7 +37,12 @@ module Twslacker
     def track(words, ignore_words, &block)
       @stream_client.track(words) do |status|
         unless ignore_words.find { |i| status.text.index(i) }
-          yield "#{status.user.screen_name}: #{status.text}"
+          if status.media?
+            yield "#{status.user.screen_name}: #{status.text}"
+            status.media.each { |m| yield "#{m.media_url}"}
+          else
+            yield "#{status.user.screen_name}: #{status.text}"
+          end
         end
       end
     end
@@ -41,7 +51,12 @@ module Twslacker
       ids = get_user_ids_from_screen_names(screen_names)
       @stream_client.follow(ids) do |status|
         unless ignore_words.find { |i| status.text.index(i) }
-          yield "#{status.user.screen_name}: #{status.text}"
+          if status.media?
+            yield "#{status.user.screen_name}: #{status.text}"
+              status.media.each { |m| yield "#{m.media_url}"}
+          else
+              yield "#{status.user.screen_name}: #{status.text}"
+          end
         end
       end
     end
@@ -49,7 +64,12 @@ module Twslacker
     def userstream(ignore_words, &block)
       @stream_client.userstream do |status|
         unless ignore_words.find { |i| status.text.index(i) }
-          yield "#{status.user.screen_name}: #{status.text}"
+          if status.media?
+            yield "#{status.user.screen_name}: #{status.text}"
+              status.media.each { |m| yield "#{m.media_url}"}
+          else
+              yield "#{status.user.screen_name}: #{status.text}"
+          end
         end
       end
     end
